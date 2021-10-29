@@ -1,0 +1,68 @@
+.Content {
+   padding: 16px;
+   display: flex;
+
+}
+
+.timer-container {
+   margin-right: 60px;
+   text-align: center;
+}
+
+.timer-count {
+   display: block;
+   margin: 16px 0;
+   font-size: 24px;
+   text-align: center;
+}
+
+.timer-btn {
+   display: inline-flex;
+   text-align: center;
+   justify-content: center;
+   text-transform: capitalize;
+   letter-spacing: 2px;
+   font-size: 14px;
+   border: none;
+   outline: none;
+   background-color: rgb(13,110,253);
+   font-weight: 500;
+   color: #fff;
+   padding: 4px 10px;
+   border-radius: 5px;
+   box-shadow: 0 0 5px rgba(0 0 0 / 30%);
+   margin: 0 4px;
+   transition: all 0.3s;
+}
+
+.timer-btn.timer-btn--success {
+   background-color: rgb(25,135,84);
+}
+
+.timer-btn.timer-btn--warning {
+   background-color: #d19e04;
+}
+
+.timer-btn:hover {
+   cursor: pointer;
+   opacity: 0.7;
+}
+
+.task-count-container {
+   text-align: center;
+}
+
+.task-count-counter {
+   background-color: #79DFC1;
+   border: none;
+   outline: none;
+   /* margin: 16px 0; */
+   font-size: 24px;
+   text-align: center;
+   padding: 5px 0;
+   width: 120px;
+   border-radius: 10px;
+}
+.task-count-counter::-webkit-inner-spin-button {
+   appearance: none;
+}
