@@ -52,17 +52,18 @@ function App() {
    };
 
    const handleGetTotalWorkedTime = () => {
-      const item = localStorage.getItem('totalWorkedTime');
+      const item = JSON.parse(localStorage.getItem('totalWorkedTime'));
       item && setTotalWorkedTime(item);
    };
 
    const handleSetTotalWorkedTime = (e) => {
-      const hours = Number(timeSetting.h);
-      const minutes = Number(timeSetting.m);
+      const hours = Number(timeSetting.h) || 0;
+      const minutes = Number(timeSetting.m) || 0;
       if (hours !== 0 || minutes !== 0) {
+         console.log(hours, minutes);
          const time = hours * 3600000 + minutes * 60000;
          localStorage.setItem('totalWorkedTime', JSON.stringify(time));
-         console.log(time);
+         // console.log(time);
          setTotalWorkedTime(time);
          setTimeSetting(() => {
             return {
