@@ -1,7 +1,7 @@
 .Content {
    padding: 16px;
    display: flex;
-
+   flex-wrap: wrap;
 }
 
 .timer-container {
@@ -65,4 +65,9 @@
 }
 .task-count-counter::-webkit-inner-spin-button {
    appearance: none;
+}
+
+.working-time {
+   min-width: 100%;
+   margin-top: 60px;
 }

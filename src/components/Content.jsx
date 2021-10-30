@@ -1,15 +1,21 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, memo } from 'react';
 
 import './Content.css';
 
-function Content() {
+function Content({ elapsedTime }) {
    const [timer, setTimer] = useState(0);
    const [taskCount, setTaskCount] = useState(0);
+   const [workingTime, setWorkingTime] = useState(0);
+
    const intervalId = useRef();
 
    useEffect(() => {
+      const workingTimeCountInterval = setInterval(() => {
+         setWorkingTime((prev) => prev + 1000);
+      }, 1000);
       return () => {
          intervalId && clearInterval(intervalId.current);
+         clearInterval(workingTimeCountInterval);
       };
    }, []);
 
@@ -66,8 +72,12 @@ function Content() {
                }}
             />
          </div>
+
+         <h2 className="working-time">
+            Working Time: {elapsedTime(workingTime)}
+         </h2>
       </div>
    );
 }
 
-export default Content;
+export default memo(Content);

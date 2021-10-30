@@ -32,3 +32,20 @@
    cursor: pointer;
    opacity: 0.7;
 }
+
+.mb-16 {
+   margin-bottom: 16px;
+}
+
+.mt-16 {
+   margin-top: 16px;
+}
+
+input::-webkit-inner-spin-button {
+   appearance: none;
+   
+}
+
+.time-input {
+   margin: 16px 8px;
+}
