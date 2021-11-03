@@ -1,60 +1,65 @@
-import { useState, useRef } from 'react';
+import { useState } from 'react';
 
-import { Content, TimeControl } from './components';
+import { WorkingTimeCounter, Toasts, Logs } from './components';
 
 import './App.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { Button } from 'react-bootstrap';
 
 function App() {
-   const [isStarted, setIsStarted] = useState(false);
-   const [workedTime, setWorkedTime] = useState();
+   const [isStartedWorking, setStartedWorking] = useState(false);
+   const [toast, setToast] = useState({
+      setShow(boolean) {
+         setToast({
+            ...toast,
+            show: boolean,
+         });
+      },
+      show: false,
+   });
 
-   const time = useRef();
-
-   const elapsedTime = (elapsed) => {
-      const msPerMinute = 60 * 1000;
-      const msPerHour = 60 * 60 * 1000;
-
-      if (elapsed < msPerMinute) {
-         return Math.round(elapsed / 1000) + ' seconds';
-      } else if (elapsed < msPerHour) {
-         return Math.round(elapsed / msPerMinute) + ' minutes';
-      } else {
-         return (
-            Math.floor(elapsed / msPerHour) +
-            ' hours ' +
-            Math.round((elapsed % msPerHour) / msPerMinute) +
-            ' minutes'
-         );
-      }
-   };
-
-   const handleClick = () => {
-      setIsStarted(!isStarted);
-      if (isStarted === false) {
-         time.current = Date.now();
-         setWorkedTime();
-      } else {
-         setWorkedTime(Date.now() - time.current);
-      }
-   };
-
+   const [logsShow, setLogsShow] = useState(false);
    return (
       <div className="App">
-         <button
-            className={isStarted ? 'btn btn--danger' : 'btn'}
-            onClick={handleClick}
-         >
-            {isStarted ? 'stop' : 'start'}
-         </button>
-         {isStarted && <Content elapsedTime={elapsedTime} />}
-         {workedTime && <h2>Worked Time: {elapsedTime(workedTime)}</h2>}
+         <nav className="d-flex flex-column">
+            <Button
+               style={{ minWidth: 'max-content' }}
+               variant={isStartedWorking ? 'outline-primary' : 'primary'}
+               disabled={isStartedWorking || logsShow}
+               onClick={() => setStartedWorking(true)}
+            >
+               {isStartedWorking ? 'Working . . .' : 'Start to work'}
+            </Button>
 
-         <TimeControl
-            isStarted={isStarted}
-            workedTime={workedTime}
-            setWorkedTime={setWorkedTime}
-            elapsedTime={elapsedTime}
-         />
+            <Button
+               className="mt-3"
+               style={{ minWidth: 'max-content' }}
+               variant={logsShow ? 'outline-danger' : 'outline-primary'}
+               disabled={isStartedWorking}
+               onClick={() => setLogsShow((prev) => !prev)}
+            >
+               {logsShow ? 'Close' : 'Logs'}
+            </Button>
+         </nav>
+
+         {isStartedWorking && (
+            <WorkingTimeCounter
+               setStartedWorking={setStartedWorking}
+               setToast={setToast}
+            />
+         )}
+
+         {logsShow && <Logs setToast={setToast} />}
+
+         {toast.show && (
+            <Toasts
+               setShow={toast.setShow}
+               variant={toast.variant}
+               title={toast.title}
+               message={toast.message}
+               delay={toast.delay}
+            />
+         )}
       </div>
    );
 }

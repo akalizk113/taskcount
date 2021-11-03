@@ -1,2 +1,3 @@
-export { default as Content } from './Content.jsx';
-export { default as TimeControl } from './TimeControl.jsx';
+export { default as WorkingTimeCounter } from './WorkingTimeCounter';
+export { default as Toasts } from './Toasts';
+export { default as Logs } from './Logs';
